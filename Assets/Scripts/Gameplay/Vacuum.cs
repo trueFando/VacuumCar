@@ -104,7 +104,7 @@ namespace Gameplay
             foreach (var rb in _objectsInArea.Where(rb => rb))
             {
                 rb.AddForce((transform.position - rb.transform.position) 
-                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position));
+                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position) * 10f);
             }
         }
 
@@ -113,7 +113,7 @@ namespace Gameplay
             foreach (var rb in _objectsInArea.Where(rb => rb))
             {
                 rb.AddForce((rb.transform.position - transform.position) 
-                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position));
+                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position) * 10f);
             }
         }
 

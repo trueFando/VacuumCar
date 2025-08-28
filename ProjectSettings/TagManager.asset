@@ -14,14 +14,14 @@ TagManager:
   - 
   - 
   - 
+  - Player
   - 
   - 
+  - Pickable
   - 
+  - Obstacle
   - 
-  - 
-  - 
-  - 
-  - 
+  - Collector
   - 
   - 
   - 

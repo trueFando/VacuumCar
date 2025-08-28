@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Gameplay
 {
@@ -14,6 +14,8 @@ namespace Gameplay
         [SerializeField] private Camera _camera;
         [SerializeField] private CameraShaker _cameraShaker;
         [SerializeField] private HealthCounter _healthCounter;
+        [SerializeField] private Button _leftButton;
+        [SerializeField] private Button _rightButton;
 
         [SerializeField] private float _movementSpeed;
         [SerializeField] private float _rotationSpeed;
@@ -25,6 +27,11 @@ namespace Gameplay
 
         private Vector2 _input;
 
+        private bool _movingForward = true;
+
+        private bool _leftPressed;
+        private bool _rightPressed;
+
         private void Awake()
         {
             _health = _maxHealth;
@@ -34,6 +41,26 @@ namespace Gameplay
             _vacuumContainer.OnBadPickableCollected += TakeDamage;
         }
 
+        public void PressLeft()
+        {
+            _leftPressed = true;
+        }
+
+        public void ReleaseLeft()
+        {
+            _leftPressed = false;
+        }
+        
+        public void PressRight()
+        {
+            _rightPressed = true;
+        }
+
+        public void ReleaseRight()
+        {
+            _rightPressed = false;
+        }
+
         private void OnDestroy()
         {
             _vacuumContainer.OnBadPickableCollected -= TakeDamage;
@@ -41,7 +68,21 @@ namespace Gameplay
 
         private void Update()
         {
-            _input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                _movingForward = !_movingForward;
+            }
+
+            // _input = _movingForward
+            //     ? new Vector2(Input.GetAxis("Horizontal"), 1f)
+            //     : new Vector2(Input.GetAxis("Horizontal"), -1f);
+
+            var x = _leftPressed ? -1f : 0f;
+            x += _rightPressed ? 1f : 0f;
+            
+            _input = _movingForward
+                ? new Vector2(x, 1f)
+                : new Vector2(x, -1f);
 
             if (_timeFromAccident >= 0f)
             {
