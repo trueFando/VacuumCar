@@ -112,7 +112,7 @@ namespace Gameplay
 
         private void Blow()
         {
-            foreach (var rb in _objectsInArea)
+            foreach (var rb in _objectsInArea.Where(rb => rb))
             {
                 rb.AddForce(rb.transform.position - transform.position);
             }
