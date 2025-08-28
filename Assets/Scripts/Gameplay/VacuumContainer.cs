@@ -58,6 +58,8 @@ namespace Gameplay
             
             if (CollectedCount + 1 > _capacity)
             {
+                _containerCounter.NotifyFull();
+
                 CollectBad(pickable);
 
                 return;
