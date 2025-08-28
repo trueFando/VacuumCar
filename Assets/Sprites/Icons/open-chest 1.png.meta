@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: 3213c986b6d5dbf4eb27e9914236f614
+guid: 57ba04ad833d60247b790d81e2296e92
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6183059891328011554
-    second: open-chest_0
+      213: -8596256409925136230
+    second: open-chest 1_0
+  - first:
+      213: -6117256652148519629
+    second: open-chest 1_1
+  - first:
+      213: -4571056979468191518
+    second: open-chest 1_2
+  - first:
+      213: -4913404733456915737
+    second: open-chest 1_3
+  - first:
+      213: 312719331809906928
+    second: open-chest 1_4
+  - first:
+      213: -1114247355749720587
+    second: open-chest 1_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 143
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +87,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -126,13 +141,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: open-chest_0
+      name: open-chest 1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 143
-        height: 143
+        x: 9
+        y: 51
+        width: 45
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +155,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ed2bd60c9cb513aa0800000000000000
-      internalID: -6183059891328011554
+      spriteID: a90dc301756f3b880800000000000000
+      internalID: -8596256409925136230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: open-chest 1_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 41
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33dcac84c732b1ba0800000000000000
+      internalID: -6117256652148519629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: open-chest 1_2
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 34
+        width: 45
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e87aba45e75090c0800000000000000
+      internalID: -4571056979468191518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: open-chest 1_3
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2
+        width: 43
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e2e3906d6410dbb0800000000000000
+      internalID: -4913404733456915737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: open-chest 1_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 29
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f05dee4390075400800000000000000
+      internalID: 312719331809906928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: open-chest 1_5
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 3
+        width: 43
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd9e98fee56980f0800000000000000
+      internalID: -1114247355749720587
       vertices: []
       indices: 
       edges: []
@@ -157,7 +277,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      open-chest_0: -6183059891328011554
+      open-chest 1_0: -8596256409925136230
+      open-chest 1_1: -6117256652148519629
+      open-chest 1_2: -4571056979468191518
+      open-chest 1_3: -4913404733456915737
+      open-chest 1_4: 312719331809906928
+      open-chest 1_5: -1114247355749720587
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

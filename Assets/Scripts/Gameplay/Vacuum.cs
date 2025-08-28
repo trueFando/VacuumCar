@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class Vacuum : MonoBehaviour
     {
+        private const float MaxDistance = 3f;
+
         public VacuumMode Mode => _mode;
         
         [SerializeField] private VacuumMode _mode;
@@ -69,10 +70,6 @@ namespace Gameplay
                     _turboParticles.Play();
                     break;
                 case VacuumMode.Off:
-                    // foreach (var rb in _objectsInArea)
-                    // {
-                    //     ResetTarget(rb);
-                    // }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
@@ -106,7 +103,8 @@ namespace Gameplay
             // TODO:
             foreach (var rb in _objectsInArea.Where(rb => rb))
             {
-                rb.AddForce(transform.position - rb.transform.position);
+                rb.AddForce((transform.position - rb.transform.position) 
+                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position));
             }
         }
 
@@ -114,7 +112,8 @@ namespace Gameplay
         {
             foreach (var rb in _objectsInArea.Where(rb => rb))
             {
-                rb.AddForce(rb.transform.position - transform.position);
+                rb.AddForce((rb.transform.position - transform.position) 
+                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position));
             }
         }
 

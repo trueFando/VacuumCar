@@ -1,20 +1,34 @@
 ﻿using System.Collections;
-using TMPro;
+using Extensions;
 using UnityEngine;
 
 namespace UI
 {
-    public class ContainerCounter : MonoBehaviour
+    public class ContainerCounter : UICounter
     {
-        [SerializeField] private TextMeshProUGUI _countText;
-
         private Coroutine _blinkingRoutine;
 
-        public void SetCount(int count, int capacity)
-        {
-            _countText.text = $"{count}/{capacity}";
+        private Color _yellowWithAlpha;
+        private Color _redWithAlpha;
 
-            _countText.color = count == capacity ? Color.red : Color.white;
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _yellowWithAlpha = Color.yellow.WithAlpha(_defaultColor.a);
+            _redWithAlpha = Color.red.WithAlpha(_defaultColor.a);
+        }
+
+        public override void SetCount(int count, int? capacity = null, bool isInitial = false)
+        {
+            base.SetCount(count, capacity, isInitial);
+
+            _countText.color = ((float)count / capacity) switch
+            {
+                < 0.6f => _defaultColor,
+                < 0.8f => _yellowWithAlpha,
+                _ => _redWithAlpha
+            };
         }
         
         public void NotifyFull()

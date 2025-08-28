@@ -90,15 +90,13 @@ namespace Gameplay
 
         private void TakeDamage(int damage)
         {
-            Debug.Log($"TakeDamage {damage}");
-
             _health = Mathf.Max(_health - damage, 0);
             
             _cameraShaker.Shake();
             
             TurnOffVacuum(3f);
             
-            _healthCounter.SetCount(_health);
+            _healthCounter.SetCount(_health, isInitial: true);
 
             if (_health <= 0)
             {

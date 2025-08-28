@@ -1,31 +1,16 @@
-﻿using System.Collections;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UI
 {
-    public class HealthCounter : MonoBehaviour
+    public class HealthCounter : UICounter
     {
-        [SerializeField] private TextMeshProUGUI _countText;
-        
-        public void SetCount(int count)
+        public override void SetCount(int count, int? capacity = null, bool isInitial = false)
         {
-            _countText.text = count.ToString();
+            base.SetCount(count, capacity, isInitial);
 
-            StartCoroutine(Blink(Color.red));
-        }
-
-        private IEnumerator Blink(Color color)
-        {
-            for (var i = 0; i < 10; i++)
+            if (!isInitial)
             {
-                _countText.color = color;
-
-                yield return new WaitForSeconds(0.1f);
-                
-                _countText.color = Color.white;
-
-                yield return new WaitForSeconds(0.1f);
+                RunBlinking(Color.red, 1f, 0.1f);
             }
         }
     }
