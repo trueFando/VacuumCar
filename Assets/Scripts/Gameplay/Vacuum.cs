@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Extensions;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ namespace Gameplay
 {
     public class Vacuum : MonoBehaviour
     {
+        private const float MaxDistance = 3f;
+
+        public VacuumMode Mode => _mode;
+        
         [SerializeField] private VacuumMode _mode;
 
         [SerializeField] private ParticleSystem _vacuumParticles;
@@ -65,10 +70,6 @@ namespace Gameplay
                     _turboParticles.Play();
                     break;
                 case VacuumMode.Off:
-                    // foreach (var rb in _objectsInArea)
-                    // {
-                    //     ResetTarget(rb);
-                    // }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
@@ -99,17 +100,20 @@ namespace Gameplay
 
         private void Suck()
         {
-            foreach (var rb in _objectsInArea)
+            // TODO:
+            foreach (var rb in _objectsInArea.Where(rb => rb))
             {
-                rb.AddForce(transform.position - rb.transform.position);
+                rb.AddForce((transform.position - rb.transform.position) 
+                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position));
             }
         }
 
         private void Blow()
         {
-            foreach (var rb in _objectsInArea)
+            foreach (var rb in _objectsInArea.Where(rb => rb))
             {
-                rb.AddForce(rb.transform.position - transform.position);
+                rb.AddForce((rb.transform.position - transform.position) 
+                    * MaxDistance / Vector3.Distance(transform.position, rb.transform.position));
             }
         }
 

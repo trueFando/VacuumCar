@@ -15,7 +15,7 @@ namespace Gameplay
 
         private void Awake()
         {
-            _counter.SetCount(_currentCount, _targetCount);
+            _counter.SetCount(_currentCount, _targetCount, true);
         }
 
         public void Collect(int count)

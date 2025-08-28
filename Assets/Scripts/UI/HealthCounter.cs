@@ -1,15 +1,17 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UI
 {
-    public class HealthCounter : MonoBehaviour
+    public class HealthCounter : UICounter
     {
-        [SerializeField] private TextMeshProUGUI _countText;
-        
-        public void SetCount(int count)
+        public override void SetCount(int count, int? capacity = null, bool isInitial = false)
         {
-            _countText.text = count.ToString();
+            base.SetCount(count, capacity, isInitial);
+
+            if (!isInitial)
+            {
+                RunBlinking(Color.red, 1f, 0.1f);
+            }
         }
     }
 }

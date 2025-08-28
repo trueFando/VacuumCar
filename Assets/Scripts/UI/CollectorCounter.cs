@@ -1,15 +1,23 @@
-﻿using TMPro;
+﻿using Extensions;
 using UnityEngine;
 
 namespace UI
 {
-    public class CollectorCounter : MonoBehaviour
+    public class CollectorCounter : UICounter
     {
-        [SerializeField] private TextMeshProUGUI _countText;
-
-        public void SetCount(int count, int target)
+        public override void SetCount(int count, int? capacity = null, bool isInitial = false)
         {
-            _countText.text = $"{count}/{target}";
+            base.SetCount(count, capacity, isInitial);
+
+            if (!isInitial && count > 0)
+            {
+                RunBlinking(Color.green, 1f, 0.1f);
+            }
+
+            if (count >= capacity)
+            {
+                _countText.color = Color.green.WithAlpha(_defaultColor.a);
+            }
         }
     }
 }
