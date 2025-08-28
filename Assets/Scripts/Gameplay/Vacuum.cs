@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Extensions;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class Vacuum : MonoBehaviour
     {
+        public VacuumMode Mode => _mode;
+        
         [SerializeField] private VacuumMode _mode;
 
         [SerializeField] private ParticleSystem _vacuumParticles;
@@ -99,7 +103,8 @@ namespace Gameplay
 
         private void Suck()
         {
-            foreach (var rb in _objectsInArea)
+            // TODO:
+            foreach (var rb in _objectsInArea.Where(rb => rb))
             {
                 rb.AddForce(transform.position - rb.transform.position);
             }

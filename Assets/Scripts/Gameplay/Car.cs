@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UI;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace Gameplay
         [SerializeField] private float _movementSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private int _maxHealth;
+        [SerializeField] private float _accidentCooldown;
+        private float _timeFromAccident = -1f;
 
         private int _health;
 
@@ -39,6 +42,11 @@ namespace Gameplay
         private void Update()
         {
             _input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            if (_timeFromAccident >= 0f)
+            {
+                _timeFromAccident += Time.deltaTime;
+            }
         }
 
         private void LateUpdate()
@@ -48,8 +56,36 @@ namespace Gameplay
 
         private void FixedUpdate()
         {
+            if (_timeFromAccident >= 0 && _timeFromAccident < _accidentCooldown)
+            {
+                return;
+            }
+
+            _rigidbody.angularVelocity = 0f;
             _rigidbody.velocity = transform.up * (_movementSpeed * _input.y);
             _rigidbody.SetRotation(transform.eulerAngles.z - _rotationSpeed * _input.x);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.TryGetComponent(out Obstacle obstacle))
+            {
+                _timeFromAccident = 0f;
+
+                TakeDamage(1);
+
+                _rigidbody.AddForce(((Vector2)transform.position - other.contacts[0].point), ForceMode2D.Impulse);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.TryGetComponent(out SafeZone safeZone))
+            {
+                return;
+            }
+
+            Die();
         }
 
         private void TakeDamage(int damage)
@@ -82,11 +118,17 @@ namespace Gameplay
 
         private IEnumerator DelayVacuum(float time)
         {
+            var mode = _vacuum.Mode;
+            
             _vacuum.SetMode(VacuumMode.Off);
             
             yield return new WaitForSeconds(time);
-            
-            _vacuum.SetMode(VacuumMode.Vacuum);
+
+            // если юзер сам не включил во время кулдауна
+            if (_vacuum.Mode == VacuumMode.Off)
+            {
+                _vacuum.SetMode(mode);   
+            }
         }
     }
 }
