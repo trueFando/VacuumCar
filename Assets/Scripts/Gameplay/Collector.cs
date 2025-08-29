@@ -35,7 +35,7 @@ namespace Gameplay
 
         private void Animate(int count)
         {
-            var toSuck = new List<Transform>();
+            var toVacuum = new List<Transform>();
 
             for (var i = 0; i < count; i++)
             {
@@ -44,13 +44,13 @@ namespace Gameplay
 
                 var idlePickable = Instantiate(_pickableIdlePrefab, position, Quaternion.identity);
 
-                toSuck.Add(idlePickable);
+                toVacuum.Add(idlePickable);
             }
 
-            StartCoroutine(Suck(toSuck));
+            StartCoroutine(Vaccum(toVacuum));
         }
 
-        private IEnumerator Suck(List<Transform> pickables)
+        private IEnumerator Vaccum(List<Transform> pickables)
         {
             if (pickables == null || pickables.Count == 0)
             {

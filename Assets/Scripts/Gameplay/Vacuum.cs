@@ -56,11 +56,11 @@ namespace Gameplay
             switch (_mode)
             {
                 case VacuumMode.Vacuum:
-                    Suck();
+                    DoVacuum();
                     _vacuumContainer.IsActive = true;
                     break;
                 case VacuumMode.Turbo:
-                    Blow();
+                    BlowOut();
                     _vacuumContainer.IsActive = true;
                     break;
                 case VacuumMode.Off:
@@ -121,7 +121,7 @@ namespace Gameplay
             _objectsInArea.Remove(rb);
         }
 
-        private void Suck()
+        private void DoVacuum()
         {
             // TODO:
             foreach (var rb in _objectsInArea.Where(rb => rb))
@@ -131,7 +131,7 @@ namespace Gameplay
             }
         }
 
-        private void Blow()
+        private void BlowOut()
         {
             foreach (var rb in _objectsInArea.Where(rb => rb))
             {
