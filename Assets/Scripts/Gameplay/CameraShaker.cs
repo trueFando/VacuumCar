@@ -14,6 +14,8 @@ namespace Gameplay
 
         public void Shake()
         {
+            Destroy(GetComponent<Animator>());
+            
             if (_shakeCoroutine != null)
             {
                 StopCoroutine(_shakeCoroutine);
