@@ -15,6 +15,8 @@ namespace Gameplay
         [SerializeField] private CameraShaker _cameraShaker;
         [SerializeField] private HealthCounter _healthCounter;
         [SerializeField] private FloatingJoystick _joystick;
+        [SerializeField] private ParticleSystem _particleWheel;
+        private float _particleDefaultEmission;
 
         [SerializeField] private float _movementSpeed;
         [SerializeField] private float _rotationSpeed;
@@ -25,13 +27,12 @@ namespace Gameplay
         private int _health;
 
         private Vector2 _input;
-        private float _motorDirection = 1f;
 
         private void Awake()
         {
             _health = _maxHealth;
 
-            _healthCounter.SetCount(_health);
+            _healthCounter.SetCount(_health, isInitial: true);
 
             _vacuumContainer.OnBadPickableCollected += TakeDamage;
         }
@@ -76,6 +77,15 @@ namespace Gameplay
 
             _rigidbody.angularVelocity = 0f;
             _rigidbody.velocity = transform.up * (_movementSpeed * _input.magnitude);
+
+            if (_rigidbody.velocity.magnitude > 0.2f)
+            {
+                _particleWheel.Play();
+            }
+            else
+            {
+                _particleWheel.Stop();
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D other)
