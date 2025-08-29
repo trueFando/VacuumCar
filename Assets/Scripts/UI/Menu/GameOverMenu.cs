@@ -51,18 +51,23 @@ namespace UI.Menu
         {
             var nextLevel = Convert.ToInt32(SceneManager.GetActiveScene().name[^1].ToString()) + 1;
 
-            StartCoroutine(WaitForFade(() => SceneManager.LoadScene($"Level{nextLevel}")));
+            StartCoroutine(WaitForFade(
+                () => { SceneManager.LoadScene(nextLevel < 5 ? $"Level{nextLevel}" : "Menu"); },
+                1f)
+            );
         }
 
         private void OnGameOver()
         {
-            StartCoroutine(WaitForFade(() => _gameOverPanel.SetActive(true)));
+            StartCoroutine(WaitForFade(() => _gameOverPanel.SetActive(true), 0.2f));
 
             _fadeAnimator.SetTrigger("FadeIn");
         }
 
-        private IEnumerator WaitForFade(Action callback)
+        private IEnumerator WaitForFade(Action callback, float timeBeforeFade = 0f)
         {
+            yield return new WaitForSeconds(timeBeforeFade);
+            
             _fadeAnimator.SetTrigger("FadeIn");
 
             yield return new WaitForSeconds(0.3f);

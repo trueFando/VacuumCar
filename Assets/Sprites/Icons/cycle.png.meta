@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 0d8a87d65ddcf9f478a805fc661b2670
+guid: 0fa3f2a1aebf44d4eb89587d24be2714
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1625043983665115602
-    second: pause-button_0
+      213: -4398558087189636285
+    second: cycle_0
   - first:
-      213: 3359984964365694278
-    second: pause-button_1
+      213: -8035901728186767280
+    second: cycle_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pause-button_0
+      name: cycle_0
       rect:
         serializedVersion: 2
-        x: 11
+        x: 1
         y: 4
-        width: 16
-        height: 56
+        width: 43
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d1bebea4e05d8610800000000000000
-      internalID: 1625043983665115602
+      spriteID: 34bd32969be25f2c0800000000000000
+      internalID: -4398558087189636285
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pause-button_1
+      name: cycle_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 4
-        width: 16
-        height: 56
+        x: 19
+        y: 1
+        width: 44
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,8 +164,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 645bbabe58011ae20800000000000000
-      internalID: 3359984964365694278
+      spriteID: 058ea7944fdba7090800000000000000
+      internalID: -8035901728186767280
       vertices: []
       indices: 
       edges: []
@@ -181,8 +181,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pause-button_0: 1625043983665115602
-      pause-button_1: 3359984964365694278
+      cycle_0: -4398558087189636285
+      cycle_1: -8035901728186767280
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
