@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UI;
+using UI.Menu;
 using UnityEngine;
 
 namespace Gameplay
@@ -13,7 +14,7 @@ namespace Gameplay
         [SerializeField] private int _targetCount;
         private int _currentCount;
 
-        private void Awake()
+        private void Start()
         {
             _counter.SetCount(_currentCount, _targetCount, true);
         }
@@ -91,6 +92,8 @@ namespace Gameplay
         private void Win()
         {
             Debug.Log("Win");
+
+            GameOverMenu.Instance.NextLevel();
         }
     }
 }

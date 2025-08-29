@@ -10216,6 +10216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mode: 0
+  _vacuumContainer: {fileID: 1110371936789652285}
   _vacuumParticles: {fileID: 3795994510961338303}
   _turboParticles: {fileID: 9206717047910305054}
 --- !u!60 &4114113477674348434

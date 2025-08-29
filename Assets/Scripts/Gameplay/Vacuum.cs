@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
+using Gameplay.Pickable;
 using UnityEngine;
 
 namespace Gameplay
@@ -14,6 +15,7 @@ namespace Gameplay
         
         [SerializeField] private VacuumMode _mode;
 
+        [SerializeField] private VacuumContainer _vacuumContainer;
         [SerializeField] private ParticleSystem _vacuumParticles;
         [SerializeField] private ParticleSystem _turboParticles;
         
@@ -21,7 +23,24 @@ namespace Gameplay
 
         private void Awake()
         {
+            _vacuumContainer.OnBadPickableCollected += OnBadCollected;
+            
             SetMode(VacuumMode.Vacuum);
+        }
+
+        private void OnBadCollected(PickableBase pickableBase)
+        {
+            foreach (var rb in _objectsInArea.Where(rb => rb))
+            {
+                rb.velocity = Vector2.zero;
+                rb.AddForce(transform.up * 5f, ForceMode2D.Impulse);
+            }
+
+            if (!_objectsInArea.Contains(pickableBase.Rigidbody))
+            {
+                pickableBase.Rigidbody.velocity = Vector2.zero;
+                pickableBase.Rigidbody.AddForce(transform.up * 5f, ForceMode2D.Impulse);
+            }
         }
 
         private void Update()
@@ -38,11 +57,14 @@ namespace Gameplay
             {
                 case VacuumMode.Vacuum:
                     Suck();
+                    _vacuumContainer.IsActive = true;
                     break;
                 case VacuumMode.Turbo:
                     Blow();
+                    _vacuumContainer.IsActive = true;
                     break;
                 case VacuumMode.Off:
+                    _vacuumContainer.IsActive = false;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -84,6 +106,7 @@ namespace Gameplay
             }
 
             _objectsInArea.Add(rb);
+            rb.drag = 0f;
         }
         
         private void OnTriggerExit2D(Collider2D other)
@@ -119,7 +142,7 @@ namespace Gameplay
 
         private void ResetTarget(Rigidbody2D rb)
         {
-            rb.velocity = Vector2.zero;
+            rb.drag = 1f;
         }
     }
 

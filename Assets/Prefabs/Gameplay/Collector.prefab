@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _counter: {fileID: 0}
   _pickableIdlePrefab: {fileID: 716457194695459541, guid: e19b7339b3b02d94f85f8f7536df5e36, type: 3}
-  _targetCount: 40
+  _targetCount: 10
 --- !u!1 &5172630904108131759
 GameObject:
   m_ObjectHideFlags: 0

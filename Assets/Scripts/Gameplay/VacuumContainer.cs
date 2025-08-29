@@ -7,7 +7,13 @@ namespace Gameplay
 {
     public class VacuumContainer : MonoBehaviour
     {
-        public event Action<int> OnBadPickableCollected;
+        public event Action<PickableBase> OnBadPickableCollected;
+
+        public bool IsActive
+        {
+            get;
+            set;
+        }
 
         [SerializeField] private ContainerCounter _containerCounter;
         [SerializeField] private Animator _animator;
@@ -27,23 +33,28 @@ namespace Gameplay
             }
         }
 
-        private void Awake()
+        private void Start()
         {
             CollectedCount = 0;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PickableBase pickable))
-            {
-                TryCollect(pickable);
-            }
-
             if (other.TryGetComponent(out Collector collector))
             {
                 collector.Collect(CollectedCount);
 
                 CollectedCount = 0;
+            }
+            
+            if (!IsActive)
+            {
+                return;
+            }
+            
+            if (other.TryGetComponent(out PickableBase pickable))
+            {
+                TryCollect(pickable);
             }
         }
 
@@ -74,12 +85,7 @@ namespace Gameplay
 
         private void CollectBad(PickableBase pickable)
         {
-            pickable.Rigidbody.AddForce(
-                (pickable.Rigidbody.transform.position - transform.position) * 50f,
-                ForceMode2D.Impulse
-            );
-            
-            OnBadPickableCollected?.Invoke(pickable.Mass);
+            OnBadPickableCollected?.Invoke(pickable);
         }
     }
 }

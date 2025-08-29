@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Gameplay
 {
     public class Car : MonoBehaviour
     {
+        public event Action OnDied;
+        
         [SerializeField] private Vacuum _vacuum;
         [SerializeField] private VacuumContainer _vacuumContainer;
         [SerializeField] private Rigidbody2D _rigidbody;
@@ -32,14 +34,12 @@ namespace Gameplay
         {
             _health = _maxHealth;
 
-            _healthCounter.SetCount(_health, isInitial: true);
-
-            _vacuumContainer.OnBadPickableCollected += TakeDamage;
+            _vacuumContainer.OnBadPickableCollected += pickable => TakeDamage(pickable.Mass);
         }
 
-        private void OnDestroy()
+        private void Start()
         {
-            _vacuumContainer.OnBadPickableCollected -= TakeDamage;
+            _healthCounter.SetCount(_health, isInitial: true);
         }
 
         private void Update()
@@ -128,7 +128,7 @@ namespace Gameplay
 
         private void Die()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            OnDied?.Invoke();
         }
 
         private void TurnOffVacuum(float time)

@@ -200,7 +200,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Switch
 
-    vacuum'
+    mode'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 933e4263c1b56e94f98157aaccf24d4f, type: 2}
   m_sharedMaterial: {fileID: -86346656425878776, guid: 933e4263c1b56e94f98157aaccf24d4f, type: 2}
@@ -302,8 +302,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6667439762564478174}
   - {fileID: 1847094078700369835}
+  - {fileID: 6667439762564478174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
