@@ -14,8 +14,7 @@ namespace Gameplay
         [SerializeField] private Camera _camera;
         [SerializeField] private CameraShaker _cameraShaker;
         [SerializeField] private HealthCounter _healthCounter;
-        [SerializeField] private Button _leftButton;
-        [SerializeField] private Button _rightButton;
+        [SerializeField] private FloatingJoystick _joystick;
 
         [SerializeField] private float _movementSpeed;
         [SerializeField] private float _rotationSpeed;
@@ -26,11 +25,7 @@ namespace Gameplay
         private int _health;
 
         private Vector2 _input;
-
-        private bool _movingForward = true;
-
-        private bool _leftPressed;
-        private bool _rightPressed;
+        private float _motorDirection = 1f;
 
         private void Awake()
         {
@@ -41,26 +36,6 @@ namespace Gameplay
             _vacuumContainer.OnBadPickableCollected += TakeDamage;
         }
 
-        public void PressLeft()
-        {
-            _leftPressed = true;
-        }
-
-        public void ReleaseLeft()
-        {
-            _leftPressed = false;
-        }
-        
-        public void PressRight()
-        {
-            _rightPressed = true;
-        }
-
-        public void ReleaseRight()
-        {
-            _rightPressed = false;
-        }
-
         private void OnDestroy()
         {
             _vacuumContainer.OnBadPickableCollected -= TakeDamage;
@@ -68,21 +43,7 @@ namespace Gameplay
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _movingForward = !_movingForward;
-            }
-
-            // _input = _movingForward
-            //     ? new Vector2(Input.GetAxis("Horizontal"), 1f)
-            //     : new Vector2(Input.GetAxis("Horizontal"), -1f);
-
-            var x = _leftPressed ? -1f : 0f;
-            x += _rightPressed ? 1f : 0f;
-            
-            _input = _movingForward
-                ? new Vector2(x, 1f)
-                : new Vector2(x, -1f);
+            _input = _joystick.Direction;
 
             if (_timeFromAccident >= 0f)
             {
@@ -101,10 +62,20 @@ namespace Gameplay
             {
                 return;
             }
+            
+            if (_input.magnitude > 0.1f)
+            {
+                var targetAngle = -Mathf.Atan2(_input.x, _input.y) * Mathf.Rad2Deg;
+
+                var currentAngle = _rigidbody.rotation;
+
+                var newAngle = Mathf.LerpAngle(currentAngle, targetAngle, 10f * Time.fixedDeltaTime);
+
+                _rigidbody.MoveRotation(newAngle);
+            }
 
             _rigidbody.angularVelocity = 0f;
-            _rigidbody.velocity = transform.up * (_movementSpeed * _input.y);
-            _rigidbody.SetRotation(transform.eulerAngles.z - _rotationSpeed * _input.x);
+            _rigidbody.velocity = transform.up * (_movementSpeed * _input.magnitude);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
